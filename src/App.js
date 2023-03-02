@@ -4,10 +4,10 @@ import GlobalStyle from "./styles/GlobalStyle";
 
 function App() {
   return (
-    <Layout>
+    <>
       <GlobalStyle />
       <Router />
-    </Layout>
+    </>
   );
 }
 
