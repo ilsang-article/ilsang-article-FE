@@ -1,5 +1,5 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import { getAllPosts } from "../../api/mainpageAPI";
@@ -9,11 +9,11 @@ const Main = () => {
   const {
     data,
     error,
+    isLoading,
     isError,
     hasNextPage,
     fetchNextPage,
     isFetching,
-    isLoading,
   } = useInfiniteQuery(
     ["allposts"],
     ({ pageParam = 0 }) => getAllPosts({ pageParam }),
@@ -27,24 +27,29 @@ const Main = () => {
       },
     }
   );
-  if (isFetching) {
-    return <p>is Fetching</p>;
-  }
+
   if (isError) {
     return <p>Error! {error.toString()}</p>;
+  }
+  if (isLoading) {
+    return <p>isLoading...</p>;
   }
 
   return (
     <Container>
-      <Serch placeholder="검색" />
-      <InfiniteScroll loadMore={fetchNextPage} hasMore={hasNextPage}>
+      <Search placeholder="검색" />
+      <InfiniteScroll
+        loadMore={fetchNextPage}
+        hasMore={hasNextPage}
+        style={{ width: "100%" }}
+      >
         {data.pages.map((page) => {
           return page.content.map((post) => {
-            return <PostCard post={post} />;
+            return <PostCard key={post.id} post={post} />;
           });
         })}
       </InfiniteScroll>
-      {isLoading && <p>Loading</p>}
+      {isFetching && <p>Loading...!!</p>}
     </Container>
   );
 };
@@ -56,10 +61,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 5px;
 `;
 
-const Serch = styled.input`
-  width: 98%;
+const Search = styled.input`
+  width: 100%;
   height: 30px;
   margin-top: 10px;
   font-size: 1.3rem;
