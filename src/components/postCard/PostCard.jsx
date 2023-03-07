@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
+  console.log(post);
   return (
     <Container>
       <Img />
