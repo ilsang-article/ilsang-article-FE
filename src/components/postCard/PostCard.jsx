@@ -14,16 +14,14 @@ const PostCard = ({ post }) => {
   const likePostOnlyMembers = () => {
     likePost.mutate({ postId: post.id });
   };
-  console.log(post);
+
   return (
-    <Container onClick={recentReadOnlyMembers}>
-      <Img />
-      <Content>
+    <Container>
+      <Img onClick={recentReadOnlyMembers} />
+      <Like onClick={likePostOnlyMembers} />
+      <Content onClick={recentReadOnlyMembers}>
         <Title>{post.title}</Title>
-        <div
-          onClick={likePostOnlyMembers}
-          style={{ height: "30px", width: "30px", backgroundColor: "red" }}
-        />
+
         <Info>
           <Date>{post.writeDate}</Date>
           <Writer>{post.writer}</Writer>
@@ -46,6 +44,7 @@ const Container = styled.div`
   align-items: center;
   border: 1px solid gray;
   border-radius: 12px;
+  position: relative;
 `;
 
 const Content = styled.div`
@@ -96,5 +95,8 @@ const Like = styled.div`
   width: 30px;
   height: 30px;
   position: absolute;
-  z-index: 1;
+  right: 10px;
+  top: 10px;
+  z-index: 99;
+  background-color: red;
 `;
