@@ -1,11 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
 import styled from "styled-components";
 import { postLikePost, postRecentRead } from "../../api/mainpageAPI";
+import { BsBookmarkCheck, BsBookmarkCheckFill } from "react-icons/bs";
+
+import { useState } from "react";
 
 const PostCard = ({ post }) => {
+  const [likeCheck, setLikeCheck] = useState(false);
   const recentRead = useMutation(({ postId }) => postRecentRead({ postId }));
 
-  const likePost = useMutation(({ postId }) => postLikePost({ postId }));
+  const likePost = useMutation(({ postId }) => postLikePost({ postId }), {
+    onSuccess: ({ data }) => {
+      setLikeCheck(data.data.likeCheck);
+    },
+  });
 
   const recentReadOnlyMembers = () => {
     recentRead.mutate({ postId: post.id });
@@ -18,7 +26,9 @@ const PostCard = ({ post }) => {
   return (
     <Container>
       <Img onClick={recentReadOnlyMembers} />
-      <Like onClick={likePostOnlyMembers} />
+      <Like onClick={likePostOnlyMembers}>
+        {likeCheck ? <BsBookmarkCheckFill /> : <BsBookmarkCheck />}
+      </Like>
       <Content onClick={recentReadOnlyMembers}>
         <Title>{post.title}</Title>
 
@@ -92,11 +102,9 @@ const Text = styled.div`
 `;
 
 const Like = styled.div`
-  width: 30px;
-  height: 30px;
   position: absolute;
   right: 10px;
   top: 10px;
   z-index: 99;
-  background-color: red;
+  font-size: 1.5rem;
 `;

@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
 import { getRecentPosts } from "../../api/RecentPageAPI";
 import PostCard from "../postCard/PostCard";
 
@@ -13,12 +14,21 @@ const RecentPosts = () => {
   if (isLoading) {
     return <p>is Loading</p>;
   }
-  return;
-  //    <>
-  //         data.map((post)=>{
-  //             return <PostCard/>
-  //                    })
-  //                     </>
+  return (
+    <Container>
+      {data.map((post) => {
+        return <PostCard key={post.id} post={post} />;
+      })}
+    </Container>
+  );
 };
 
 export default RecentPosts;
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+`;
