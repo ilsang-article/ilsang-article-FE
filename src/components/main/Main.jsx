@@ -1,10 +1,8 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-
+import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
-import styled from "styled-components";
 import { getAllPosts } from "../../api/mainpageAPI";
 import PostCard from "../postCard/PostCard";
-
+import classes from "./Main.module.css";
 const Main = () => {
   const {
     data,
@@ -36,8 +34,8 @@ const Main = () => {
   }
 
   return (
-    <Container>
-      <Search placeholder="검색" />
+    <div className={classes.container}>
+      <input className={classes.search} placeholder="검색" />
       <InfiniteScroll
         loadMore={fetchNextPage}
         hasMore={hasNextPage}
@@ -50,25 +48,8 @@ const Main = () => {
         })}
       </InfiniteScroll>
       {isFetching && <p>Loading...!!</p>}
-    </Container>
+    </div>
   );
 };
 
 export default Main;
-
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5px;
-`;
-
-const Search = styled.input`
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  font-size: 1.3rem;
-  border: none;
-  background-color: #dcd8d8;
-`;

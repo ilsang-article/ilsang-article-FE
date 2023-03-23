@@ -1,7 +1,10 @@
+import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { loginApi } from "../api/loginAPI";
-const TestLogin = () => {
+import { loginApi } from "../../api/loginAPI";
+import classes from "./Login.module.css";
+
+export default function Login() {
   const [login, setLogin] = useState({ username: "", password: "" });
 
   const loginMutation = useMutation((login) => loginApi(login), {
@@ -21,12 +24,22 @@ const TestLogin = () => {
     loginMutation.mutate(login);
   };
   return (
-    <>
-      <input onChange={onChangeLogin} placeholder="id" name="username" />
-      <input onChange={onChangeLogin} placeholder="pw" name="password" />
-      <button onClick={onClickLogin}>login</button>
-    </>
-  );
-};
+    <div className={classes.container}>
+      <input
+        onChange={onChangeLogin}
+        placeholder="id"
+        name="username"
+        type="text"
+      />
 
-export default TestLogin;
+      <input
+        onChange={onChangeLogin}
+        placeholder="pw"
+        name="password"
+        type="password"
+      />
+
+      <button onClick={onClickLogin}>login</button>
+    </div>
+  );
+}
