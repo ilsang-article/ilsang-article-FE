@@ -1,12 +1,12 @@
-import Layout from "./layout/Layout";
+import { DarkModeProvider } from "./context/DarkModeContext";
 import Router from "./router/Router";
-import GlobalStyle from "./styles/GlobalStyle";
 
 function App() {
   return (
     <>
-      <GlobalStyle />
-      <Router />
+      <DarkModeProvider>
+        <Router />
+      </DarkModeProvider>
     </>
   );
 }

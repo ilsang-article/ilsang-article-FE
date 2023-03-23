@@ -6,6 +6,8 @@ import LikePostsPage from "../pages/LikePostsPage";
 import RecentPostsPage from "../pages/RecentPostsPage";
 import Layout from "../layout/Layout";
 import TestLogin from "../pages/TestLogin";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -15,6 +17,8 @@ const Router = () => {
           <Route path="/likeposts" element={<LikePostsPage />} />
           <Route path="/recentposts" element={<RecentPostsPage />} />
           <Route path="/test" element={<TestLogin />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

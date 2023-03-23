@@ -1,10 +1,9 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
-import { getRecentPosts } from "../../api/RecentPageAPI";
+import { getLikePosts } from "../../api/likePageAPI";
 import PostCard from "../postCard/PostCard";
-import classes from "./RecentPosts.module.css";
-
-const RecentPosts = () => {
+import classes from "./LikePosts.module.css";
+const LikePosts = () => {
   const {
     data,
     error,
@@ -15,7 +14,7 @@ const RecentPosts = () => {
     isFetching,
   } = useInfiniteQuery(
     ["recentPosts"],
-    ({ pageParam = 0 }) => getRecentPosts({ pageParam }),
+    ({ pageParam = 0 }) => getLikePosts({ pageParam }),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage.content.length === 10) {
@@ -52,4 +51,4 @@ const RecentPosts = () => {
   );
 };
 
-export default RecentPosts;
+export default LikePosts;
