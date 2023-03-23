@@ -1,3 +1,5 @@
+@import "./reset.css";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -15,12 +17,14 @@ body {
   --color-grey: #d1d1d1;
   --color-text: #22243b;
   --color-accent: #4986e8;
+  --color-subText: rgb(123, 119, 119);
 }
 html.dark {
   --color-bg-dark: black;
   --color-accent: orange;
   --color-text: #d1d1d1;
   --color-bg: #202124;
+  --color-subText: rgb(217, 211, 211);
 }
 
 code {

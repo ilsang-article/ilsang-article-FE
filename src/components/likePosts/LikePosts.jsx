@@ -13,7 +13,7 @@ const LikePosts = () => {
     fetchNextPage,
     isFetching,
   } = useInfiniteQuery(
-    ["recentPosts"],
+    ["likePosts"],
     ({ pageParam = 0 }) => getLikePosts({ pageParam }),
     {
       getNextPageParam: (lastPage, allPages) => {
