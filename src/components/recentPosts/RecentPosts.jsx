@@ -1,6 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
+import { useNavigate } from "react-router-dom";
 import { getRecentPosts } from "../../api/RecentPageAPI";
+import { useLoginCheck } from "../../context/LoginCheckContext";
+import { useRedirectIfNotLoggedIn } from "../../hook/useRedirectIfNotLoggedIn";
 import PostCard from "../postCard/PostCard";
 import classes from "./RecentPosts.module.css";
 
@@ -26,8 +30,8 @@ const RecentPosts = () => {
       },
     }
   );
+  useRedirectIfNotLoggedIn();
 
-  console.log(data);
   if (isError) {
     return <p>Error! {error.toString()}</p>;
   }

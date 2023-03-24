@@ -1,6 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
+import { useNavigate } from "react-router-dom";
 import { getLikePosts } from "../../api/likePageAPI";
+import { useLoginCheck } from "../../context/LoginCheckContext";
+import { useRedirectIfNotLoggedIn } from "../../hook/useRedirectIfNotLoggedIn";
 import PostCard from "../postCard/PostCard";
 import classes from "./LikePosts.module.css";
 const LikePosts = () => {
@@ -25,14 +29,15 @@ const LikePosts = () => {
       },
     }
   );
+  useRedirectIfNotLoggedIn();
 
-  console.log(data);
   if (isError) {
     return <p>Error! {error.toString()}</p>;
   }
   if (isLoading) {
     return <p>isLoading...</p>;
   }
+
   return (
     <div className={classes.container}>
       <InfiniteScroll

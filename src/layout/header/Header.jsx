@@ -1,5 +1,7 @@
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
+
+import { logoutApi } from "../../api/loginAPI";
 import { useDarkMode } from "../../context/DarkModeContext";
 import { useLoginCheck } from "../../context/LoginCheckContext";
 import classes from "./Header.module.css";
@@ -19,8 +21,11 @@ const Header = () => {
       url: "recentposts",
     },
   ];
-  const { isLogin } = useLoginCheck();
+  const { isLogin, setIsLogin } = useLoginCheck();
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const logoutMutation = useMutation(() => logoutApi(), {
+    onSuccess: () => alert("성공"),
+  });
   return (
     <div className={classes.container}>
       <div className={classes.darkBtn} onClick={toggleDarkMode}>
@@ -29,7 +34,12 @@ const Header = () => {
       {menus.map((menu) => {
         return <MenuBtn key={menu.menu} menu={menu.menu} url={menu.url} />;
       })}
-      <MenuBtn menu={isLogin ? "로그아웃" : "로그인"} url="login" />
+      <MenuBtn
+        menu={isLogin ? "로그아웃" : "로그인"}
+        url={isLogin ? "logout" : "login"}
+        logoutMutation={logoutMutation}
+        setIsLogin={setIsLogin}
+      />
     </div>
   );
 };

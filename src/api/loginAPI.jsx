@@ -8,3 +8,7 @@ export const loginApi = async (login) => {
 };
 
 //로그아웃
+export const logoutApi = async () => {
+  const data = await api.post("/logout");
+  return data;
+};
