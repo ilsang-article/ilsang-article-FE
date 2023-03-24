@@ -1,11 +1,14 @@
 import { DarkModeProvider } from "./context/DarkModeContext";
+import { LoginCheckProvider } from "./context/LoginCheckContext";
 import Router from "./router/Router";
 
 function App() {
   return (
     <>
       <DarkModeProvider>
-        <Router />
+        <LoginCheckProvider>
+          <Router />
+        </LoginCheckProvider>
       </DarkModeProvider>
     </>
   );

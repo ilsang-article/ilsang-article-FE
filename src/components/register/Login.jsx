@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import SubmitBtn from "./SubmitBtn";
 import Title from "./Title";
+import { useLoginCheck } from "../../context/LoginCheckContext";
 
 export default function Login() {
   const navigator = useNavigate();
@@ -17,6 +18,7 @@ export default function Login() {
       console.log(res.headers);
       localStorage.setItem("access_token", res.headers.access_token);
       localStorage.setItem("refresh_token", res.headers.refresh_token);
+      setIsLogin(true);
       alert("로그인완료");
       navigator("/");
     },
@@ -30,6 +32,7 @@ export default function Login() {
     e.preventDefault();
     loginMutation.mutate(login);
   };
+  const { setIsLogin } = useLoginCheck();
   return (
     <div className={classes.container}>
       <Title className={classes.title}>Login</Title>
