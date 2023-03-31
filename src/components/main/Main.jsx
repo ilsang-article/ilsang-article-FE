@@ -3,6 +3,7 @@ import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { getAllPosts } from "../../api/mainpageAPI";
 import PostCard from "../postCard/PostCard";
+import ScrollToTop from "../scroll/ScrollToTop";
 import classes from "./Main.module.css";
 const Main = ({ search, setSearch, onSearchChange }) => {
   const {
@@ -53,6 +54,7 @@ const Main = ({ search, setSearch, onSearchChange }) => {
         })}
       </InfiniteScroll>
       {isFetching && <p>Loading...!!</p>}
+      <ScrollToTop />
     </div>
   );
 };

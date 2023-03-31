@@ -1,0 +1,14 @@
+.scroll {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  position: fixed;
+  z-index: 999;
+  bottom: 30px;
+  right: 30px;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}

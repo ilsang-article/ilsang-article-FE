@@ -15,12 +15,14 @@ export default function Login() {
 
   const loginMutation = useMutation((login) => loginApi(login), {
     onSuccess: (res) => {
-      console.log(res.headers);
       localStorage.setItem("access_token", res.headers.access_token);
       localStorage.setItem("refresh_token", res.headers.refresh_token);
       setIsLogin(true);
       alert("로그인완료");
       navigator("/");
+    },
+    onError: (err) => {
+      alert(err.response.data.error.detail);
     },
   });
 
