@@ -8,3 +8,10 @@
   font-size: 1rem;
   font-weight: bold;
 }
+
+@media (min-width: 1024px) {
+  .menuBtn {
+    font-size: 1.4rem;
+    width: 100px;
+  }
+}

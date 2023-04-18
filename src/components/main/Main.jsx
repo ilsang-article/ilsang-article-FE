@@ -1,9 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { getAllPosts } from "../../api/mainpageAPI";
 import PostCard from "../postCard/PostCard";
+import ScrollToTop from "../scroll/ScrollToTop";
 import classes from "./Main.module.css";
-const Main = () => {
+const Main = ({ search, setSearch, onSearchChange }) => {
   const {
     data,
     error,
@@ -13,8 +15,8 @@ const Main = () => {
     fetchNextPage,
     isFetching,
   } = useInfiniteQuery(
-    ["allposts"],
-    ({ pageParam = 0 }) => getAllPosts({ pageParam }),
+    ["allposts", search],
+    ({ pageParam = 0 }) => getAllPosts({ pageParam, search }),
     {
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage.content.length === 10) {
@@ -35,7 +37,11 @@ const Main = () => {
 
   return (
     <div className={classes.container}>
-      <input className={classes.search} placeholder="검색" />
+      {/* <input
+        className={classes.search}
+        placeholder="검색"
+        onChange={onSearchChange}
+      /> */}
       <InfiniteScroll
         loadMore={fetchNextPage}
         hasMore={hasNextPage}

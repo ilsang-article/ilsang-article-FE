@@ -1,0 +1,20 @@
+.container {
+  margin-bottom: 30px;
+}
+
+.input {
+  display: block;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 300px;
+  height: 40px;
+
+  border-bottom: 1px solid var(--color-text);
+  color: var(--color-text);
+}
+
+.text {
+  color: var(--color-subText);
+  font-size: 0.9rem;
+}

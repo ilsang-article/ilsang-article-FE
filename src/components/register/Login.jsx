@@ -3,16 +3,26 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { loginApi } from "../../api/loginAPI";
 import classes from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
+import Input from "./Input";
+import SubmitBtn from "./SubmitBtn";
+import Title from "./Title";
+import { useLoginCheck } from "../../context/LoginCheckContext";
 
 export default function Login() {
+  const navigator = useNavigate();
   const [login, setLogin] = useState({ username: "", password: "" });
 
   const loginMutation = useMutation((login) => loginApi(login), {
     onSuccess: (res) => {
-      console.log(res.headers);
       localStorage.setItem("access_token", res.headers.access_token);
       localStorage.setItem("refresh_token", res.headers.refresh_token);
+      setIsLogin(true);
       alert("로그인완료");
+      navigator("/");
+    },
+    onError: (err) => {
+      alert(err.response.data.error.detail);
     },
   });
 
@@ -20,26 +30,40 @@ export default function Login() {
     const { name, value } = event.target;
     setLogin({ ...login, [name]: value });
   };
-  const onClickLogin = () => {
+  const onSubmitLogin = (e) => {
+    e.preventDefault();
     loginMutation.mutate(login);
   };
+  const { setIsLogin } = useLoginCheck();
   return (
     <div className={classes.container}>
-      <input
-        onChange={onChangeLogin}
-        placeholder="id"
-        name="username"
-        type="text"
-      />
+      <Title className={classes.title}>Login</Title>
+      <form className={classes.form} onSubmit={onSubmitLogin} id="login">
+        <Input
+          onChange={onChangeLogin}
+          placeholder="ID"
+          name="username"
+          type="text"
+        />
 
-      <input
-        onChange={onChangeLogin}
-        placeholder="pw"
-        name="password"
-        type="password"
-      />
+        <Input
+          onChange={onChangeLogin}
+          placeholder="PW"
+          name="password"
+          type="password"
+        />
+      </form>
+      <SubmitBtn form="login" name="로그인" />
 
-      <button onClick={onClickLogin}>login</button>
+      <span className={classes.sign_up1}>
+        Don't have an account?{" "}
+        <span
+          className={classes.sign_up2}
+          onClick={() => navigator("/register")}
+        >
+          Sign up
+        </span>
+      </span>
     </div>
   );
 }
