@@ -30,6 +30,7 @@ const RecentPosts = () => {
       },
     }
   );
+
   useRedirectIfNotLoggedIn();
 
   if (isError) {

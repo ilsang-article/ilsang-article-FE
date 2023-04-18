@@ -54,7 +54,6 @@ const Main = ({ search, setSearch, onSearchChange }) => {
         })}
       </InfiniteScroll>
       {isFetching && <p>Loading...!!</p>}
-      <ScrollToTop />
     </div>
   );
 };

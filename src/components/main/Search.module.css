@@ -6,3 +6,10 @@
   border: none;
   background-color: #dcd8d8;
 }
+
+@media (min-width: 1024px) {
+  .search {
+    margin: 10px auto;
+    max-width: 1024px;
+  }
+}

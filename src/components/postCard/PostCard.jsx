@@ -5,7 +5,7 @@ import classes from "./PostCard.module.css";
 import { useState } from "react";
 import { timeAgo } from "../../hook/timeAgo";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, isLikePosts }) => {
   const [likeCheck, setLikeCheck] = useState(post.likeCheck);
   const recentRead = useMutation(({ postId }) => postRecentRead({ postId }));
 
@@ -26,7 +26,7 @@ const PostCard = ({ post }) => {
   const likePostOnlyMembers = () => {
     likePost.mutate({ postId: post.id });
   };
-
+  const content = post.contents + "•••";
   return (
     <div className={classes.container}>
       <img
@@ -36,9 +36,9 @@ const PostCard = ({ post }) => {
         alt={post.title}
       />
 
-      <div className={classes.content} onClick={recentReadOnlyMembers}>
+      <div className={classes.contents} onClick={recentReadOnlyMembers}>
         <div className={classes.title}>{post.title}</div>
-
+        <article className={classes.content}>{content}</article>
         <div className={classes.info}>
           <span className={classes.date}>{timeAgo(post.writeDate)}</span>
           <span className={classes.writer}>{post.writer}</span>
@@ -47,6 +47,9 @@ const PostCard = ({ post }) => {
       </div>
       <div className={classes.like} onClick={likePostOnlyMembers}>
         {likeCheck ? <BsBookmarkCheckFill /> : <BsBookmarkCheck />}
+        {isLikePosts && (
+          <>{post.likeReadCheck ? <div>read</div> : <div>unread</div>}</>
+        )}
       </div>
     </div>
   );

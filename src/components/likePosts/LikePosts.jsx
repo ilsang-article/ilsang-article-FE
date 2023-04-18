@@ -47,7 +47,7 @@ const LikePosts = () => {
       >
         {data.pages.map((page) => {
           return page.content.map((post) => {
-            return <PostCard key={post.id} post={post} />;
+            return <PostCard key={post.id} post={post} isLikePosts={true} />;
           });
         })}
       </InfiniteScroll>
