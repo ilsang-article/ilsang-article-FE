@@ -1,14 +1,15 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import { useNavigate } from "react-router-dom";
 import { getRecentPosts } from "../../api/RecentPageAPI";
-import { useLoginCheck } from "../../context/LoginCheckContext";
 import { useRedirectIfNotLoggedIn } from "../../hook/useRedirectIfNotLoggedIn";
+import Loading from "../loading/Loading";
+import NoResults from "../loading/NoResults";
 import PostCard from "../postCard/PostCard";
 import classes from "./RecentPosts.module.css";
 
 const RecentPosts = () => {
+  const [isNoResults, setIsNoResults] = useState(false);
   const {
     data,
     error,
@@ -21,6 +22,11 @@ const RecentPosts = () => {
     ["recentPosts"],
     ({ pageParam = 0 }) => getRecentPosts({ pageParam }),
     {
+      onSuccess: (res) => {
+        if (res.pages[0].content.length === 0) {
+          setIsNoResults(true);
+        }
+      },
       getNextPageParam: (lastPage, allPages) => {
         if (lastPage.content.length === 10) {
           return allPages.length;
@@ -34,10 +40,17 @@ const RecentPosts = () => {
   useRedirectIfNotLoggedIn();
 
   if (isError) {
-    return <p>Error! {error.toString()}</p>;
+    return (
+      <div className={classes.container}>
+        <p>Error! {error.toString()}</p>
+      </div>
+    );
   }
   if (isLoading) {
-    return <p>isLoading...</p>;
+    return <Loading />;
+  }
+  if (isNoResults) {
+    return <NoResults>최근 읽은 글이 없습니다.</NoResults>;
   }
   return (
     <div className={classes.container}>
@@ -52,7 +65,7 @@ const RecentPosts = () => {
           });
         })}
       </InfiniteScroll>
-      {isFetching && <p>Loading...!!</p>}
+      {isFetching && <p className={classes.loading}>Loading...!!</p>}
     </div>
   );
 };

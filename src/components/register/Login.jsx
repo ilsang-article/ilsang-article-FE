@@ -8,6 +8,7 @@ import Input from "./Input";
 import SubmitBtn from "./SubmitBtn";
 import Title from "./Title";
 import { useLoginCheck } from "../../context/LoginCheckContext";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigator = useNavigate();
@@ -18,11 +19,10 @@ export default function Login() {
       localStorage.setItem("access_token", res.headers.access_token);
       localStorage.setItem("refresh_token", res.headers.refresh_token);
       setIsLogin(true);
-      alert("로그인완료");
       navigator("/");
     },
     onError: (err) => {
-      alert(err.response.data.error.detail);
+      toast(err.response.data.error.detail);
     },
   });
 

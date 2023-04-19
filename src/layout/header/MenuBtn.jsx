@@ -1,7 +1,14 @@
 import React from "react";
 import classes from "./MenuBtn.module.css";
 import { useNavigate } from "react-router-dom";
-export default function MenuBtn({ menu, url, logoutMutation, setIsLogin }) {
+export default function MenuBtn({
+  menu,
+  url,
+  logoutMutation,
+  setIsLogin,
+  tab,
+  currentTab,
+}) {
   const navigator = useNavigate();
   const logout = () => {
     localStorage.removeItem("access_token");
@@ -9,7 +16,7 @@ export default function MenuBtn({ menu, url, logoutMutation, setIsLogin }) {
   };
   return (
     <div
-      className={classes.menuBtn}
+      className={tab === currentTab ? classes.currentMenuBtn : classes.menuBtn}
       onClick={
         url === "logout"
           ? () => {

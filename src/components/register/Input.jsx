@@ -18,6 +18,7 @@ export default function Input({
         type={type}
         value={value}
       />
+
       <span className={classes.text}>{text}</span>
     </div>
   );

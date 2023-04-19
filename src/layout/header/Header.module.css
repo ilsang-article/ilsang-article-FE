@@ -3,30 +3,38 @@
   height: 50px;
   background-color: var(--color-bg-dark);
   display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: fixed;
+  z-index: 999;
+}
+.wrapper {
+  width: 100%;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  padding: 0 10px;
-  margin: 0 auto;
 }
 
 .darkBtn {
   color: var(--color-accent);
   font-size: 1.4rem;
+  cursor: pointer;
+}
+.tabcurrent {
+  background-color: var(--color-bg);
 }
 
-img {
+.wrapper img {
+  padding: 0 20px;
   height: 50px;
+  cursor: pointer;
 }
 
-@media (min-width: 1024px) {
-  .container {
-    height: 70px;
-  }
-  .darkBtn {
-    font-size: 1.8rem;
-  }
-  img {
-    height: 70px;
+@media (min-width: 900px) {
+  .wrapper {
+    max-width: 900px;
   }
 }

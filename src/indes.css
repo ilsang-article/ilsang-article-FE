@@ -23,15 +23,19 @@ body::-webkit-scrollbar {
   --color-bg: #fdfffd;
   --color-grey: #d1d1d1;
   --color-text: #22243b;
-  --color-accent: #4986e8;
+  --color-accent: rgb(71, 93, 120);
   --color-subText: rgb(123, 119, 119);
+  --color-hyperlink: blue;
+  --toastify-color-progress-light: rgb(22, 28, 107);
 }
 html.dark {
-  --color-bg-dark: black;
-  --color-accent: orange;
+  --color-bg-dark: rgb(22, 28, 46);
+  --color-accent: white;
   --color-text: #d1d1d1;
-  --color-bg: #202124;
+  --color-bg: rgb(34, 41, 63);
   --color-subText: rgb(217, 211, 211);
+  --color-hyperlink: yellow;
+  --toastify-color-progress-light: skyblue;
 }
 
 code {

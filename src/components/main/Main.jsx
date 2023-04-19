@@ -1,9 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { getAllPosts } from "../../api/mainpageAPI";
+import Loading from "../loading/Loading";
 import PostCard from "../postCard/PostCard";
-import ScrollToTop from "../scroll/ScrollToTop";
 import classes from "./Main.module.css";
 const Main = ({ search, setSearch, onSearchChange }) => {
   const {
@@ -29,19 +28,18 @@ const Main = ({ search, setSearch, onSearchChange }) => {
   );
 
   if (isError) {
-    return <p>Error! {error.toString()}</p>;
+    return (
+      <div className={classes.container}>
+        <p>Error! {error.toString()}</p>
+      </div>
+    );
   }
   if (isLoading) {
-    return <p>isLoading...</p>;
+    return <Loading />;
   }
 
   return (
     <div className={classes.container}>
-      {/* <input
-        className={classes.search}
-        placeholder="검색"
-        onChange={onSearchChange}
-      /> */}
       <InfiniteScroll
         loadMore={fetchNextPage}
         hasMore={hasNextPage}
@@ -53,7 +51,7 @@ const Main = ({ search, setSearch, onSearchChange }) => {
           });
         })}
       </InfiniteScroll>
-      {isFetching && <p>Loading...!!</p>}
+      {isFetching && <p className={classes.loading}>Loading...!!</p>}
     </div>
   );
 };
