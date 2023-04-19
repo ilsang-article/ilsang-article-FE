@@ -1,13 +1,16 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import { useNavigate } from "react-router-dom";
 import { getLikePosts } from "../../api/likePageAPI";
-import { useLoginCheck } from "../../context/LoginCheckContext";
 import { useRedirectIfNotLoggedIn } from "../../hook/useRedirectIfNotLoggedIn";
+import Loading from "../loading/Loading";
+import NoResults from "../loading/NoResults";
 import PostCard from "../postCard/PostCard";
 import classes from "./LikePosts.module.css";
 const LikePosts = () => {
+  const [isNoResults, setIsNoResults] = useState(false);
+
+  const [filter, setFilter] = useState("");
   const {
     data,
     error,
@@ -16,30 +19,65 @@ const LikePosts = () => {
     hasNextPage,
     fetchNextPage,
     isFetching,
-  } = useInfiniteQuery(
-    ["likePosts"],
-    ({ pageParam = 0 }) => getLikePosts({ pageParam }),
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.content.length === 10) {
-          return allPages.length;
-        } else if (lastPage.content.length < 10) {
-          return undefined;
-        }
-      },
-    }
-  );
+  } = useInfiniteQuery(["likePosts", filter], () => getLikePosts({ filter }), {
+    onSuccess: (res) => {
+      if (res.pages[0].content.length === 0) {
+        setIsNoResults(true);
+      } else {
+        setIsNoResults(false);
+      }
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.content.length === 10) {
+        return allPages.length;
+      } else if (lastPage.content.length < 10) {
+        return undefined;
+      }
+    },
+  });
   useRedirectIfNotLoggedIn();
 
   if (isError) {
-    return <p>Error! {error.toString()}</p>;
+    return (
+      <div className={classes.container}>
+        <p>Error! {error.toString()}</p>
+      </div>
+    );
   }
   if (isLoading) {
-    return <p>isLoading...</p>;
+    return <Loading />;
   }
 
   return (
     <div className={classes.container}>
+      <div className={classes.top_menu}>
+        <span className={classes.readCheck}>읽음확인</span>
+        <div>
+          <span
+            className={filter === "" ? classes.filtered : classes.unfiltered}
+            onClick={() => setFilter("")}
+          >
+            전체보기
+          </span>
+          <span
+            className={
+              filter === "?read=true" ? classes.filtered : classes.unfiltered
+            }
+            onClick={() => setFilter("?read=true")}
+          >
+            읽은글보기
+          </span>
+          <span
+            className={
+              filter === "?read=false" ? classes.filtered : classes.unfiltered
+            }
+            onClick={() => setFilter("?read=false")}
+          >
+            안읽은글보기
+          </span>
+        </div>
+      </div>
+      {isNoResults && <NoResults>찜한글이 없습니다.</NoResults>}
       <InfiniteScroll
         loadMore={fetchNextPage}
         hasMore={hasNextPage}
@@ -51,7 +89,7 @@ const LikePosts = () => {
           });
         })}
       </InfiniteScroll>
-      {isFetching && <p>Loading...!!</p>}
+      {isFetching && <p className={classes.loading}>Loading...!!</p>}
     </div>
   );
 };

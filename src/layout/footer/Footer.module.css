@@ -7,3 +7,11 @@
   justify-content: center;
   align-items: center;
 }
+.type {
+  margin-left: 40px;
+  cursor: default;
+}
+.name {
+  margin-left: 10px;
+  cursor: pointer;
+}

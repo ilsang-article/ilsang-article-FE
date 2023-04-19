@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { postIdCheck, postRegister } from "../../api/registerAPI";
 import Input from "./Input";
 import classes from "./Register.module.css";
@@ -80,10 +81,10 @@ export default function Register() {
     (payload) => postRegister(payload),
     {
       onSuccess: () => {
-        alert("회원가입 성공");
+        toast("회원가입 성공");
         navigator("/login");
       },
-      onError: () => alert("에러발생!"),
+      onError: (err) => toast(err.response.data.error.detail),
     }
   );
 

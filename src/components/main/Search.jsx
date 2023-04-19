@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import classes from "./Search.module.css";
 
 export default function Search({ setSearch }) {
@@ -7,10 +7,13 @@ export default function Search({ setSearch }) {
     setSearch(e.target.value);
   };
   return (
-    <input
-      placeholder="검색"
-      onChange={onSearchChange}
-      className={classes.search}
-    />
+    <div className={classes.container}>
+      <input
+        placeholder="Search"
+        onChange={onSearchChange}
+        className={classes.search}
+      />
+      <AiOutlineSearch />
+    </div>
   );
 }

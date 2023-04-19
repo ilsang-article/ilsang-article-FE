@@ -4,3 +4,40 @@
   flex-direction: column;
   align-items: center;
 }
+.filtered {
+  margin: 0 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.unfiltered {
+  margin: 0 10px;
+  cursor: pointer;
+}
+.top_menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: var(--color-text);
+}
+.readCheck {
+  margin-left: 15px;
+}
+.loading {
+  color: var(--color-text);
+}
+
+@media (min-width: 900px) {
+  .top_menu {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 400px) {
+  .top_menu {
+    font-size: 0.8rem;
+  }
+  .readCheck {
+    margin-left: 0;
+  }
+}
