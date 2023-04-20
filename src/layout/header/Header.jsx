@@ -29,7 +29,7 @@ const Header = () => {
   });
 
   const { currentTab } = useParamHook();
-  console.log("현재탭", currentTab);
+
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>

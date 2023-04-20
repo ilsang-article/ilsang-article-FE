@@ -9,6 +9,7 @@ import SubmitBtn from "./SubmitBtn";
 import Title from "./Title";
 import { useLoginCheck } from "../../context/LoginCheckContext";
 import { toast } from "react-toastify";
+import Loading from "../loading/Loading";
 
 export default function Login() {
   const navigator = useNavigate();
@@ -35,6 +36,11 @@ export default function Login() {
     loginMutation.mutate(login);
   };
   const { setIsLogin } = useLoginCheck();
+
+  if (loginMutation.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className={classes.container}>
       <Title className={classes.title}>Login</Title>

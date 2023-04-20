@@ -14,6 +14,7 @@ const PostCard = ({ post, isLikePosts }) => {
       const img = new Image();
       img.src = url;
       img.onload = () => {
+        //네이버 기본이미지 입력시 일클로고로 바꿈
         if (
           url ===
           "https://ssl.pstatic.net/static.news/image/news/ogtag/navernews_800x420_20221201.jpg"
@@ -23,7 +24,8 @@ const PostCard = ({ post, isLikePosts }) => {
           setImgSrc(url);
         }
       };
-      img.onerror = () => setImgSrc("/logo-light22.png"); // 로드 실패시 기본 이미지로 설정
+      //이미지 로드 실패시 일클로고로 바꿈
+      img.onerror = () => setImgSrc("/logo-light22.png");
     };
     loadImage(post.imageUrl);
   }, [post]);
