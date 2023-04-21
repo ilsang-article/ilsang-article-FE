@@ -51,33 +51,30 @@ const LikePosts = () => {
   return (
     <div className={classes.container}>
       <div className={classes.top_menu}>
-        <span className={classes.readCheck}>읽음확인</span>
-        <div>
-          <span
-            className={filter === "" ? classes.filtered : classes.unfiltered}
-            onClick={() => setFilter("")}
-          >
-            전체보기
-          </span>
-          <span
-            className={
-              filter === "?read=true" ? classes.filtered : classes.unfiltered
-            }
-            onClick={() => setFilter("?read=true")}
-          >
-            읽은글보기
-          </span>
-          <span
-            className={
-              filter === "?read=false" ? classes.filtered : classes.unfiltered
-            }
-            onClick={() => setFilter("?read=false")}
-          >
-            안읽은글보기
-          </span>
-        </div>
+        <span
+          className={filter === "" ? classes.filtered : classes.unfiltered}
+          onClick={() => setFilter("")}
+        >
+          전체보기
+        </span>
+        <span
+          className={
+            filter === "?read=true" ? classes.filtered : classes.unfiltered
+          }
+          onClick={() => setFilter("?read=true")}
+        >
+          읽은글보기
+        </span>
+        <span
+          className={
+            filter === "?read=false" ? classes.filtered : classes.unfiltered
+          }
+          onClick={() => setFilter("?read=false")}
+        >
+          안읽은글보기
+        </span>
       </div>
-      {isNoResults && <NoResults>찜한글이 없습니다.</NoResults>}
+      {isNoResults && <NoResults>글이 없습니다.</NoResults>}
       <InfiniteScroll
         loadMore={fetchNextPage}
         hasMore={hasNextPage}

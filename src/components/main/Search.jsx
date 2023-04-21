@@ -8,12 +8,12 @@ export default function Search({ setSearch }) {
   };
   return (
     <div className={classes.container}>
+      <AiOutlineSearch />
       <input
         placeholder="Search"
         onChange={onSearchChange}
         className={classes.search}
       />
-      <AiOutlineSearch />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { timeAgo } from "../../hook/timeAgo";
 import { deleteReadCheck } from "../../api/likePageAPI";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const PostCard = ({ post, isLikePosts }) => {
   const [imgSrc, setImgSrc] = useState(post.imgUrl);
@@ -41,9 +42,10 @@ const PostCard = ({ post, isLikePosts }) => {
   const likePost = useMutation(({ postId }) => postLikePost({ postId }), {
     onSuccess: ({ data }) => {
       setLikeCheck(data.data.likeCheck);
+      queryClient.invalidateQueries(["likePosts"]);
     },
     onError: () => {
-      alert("로그인 후 이용하세요!");
+      toast("로그인 후 이용하세요!");
     },
   });
 
@@ -83,7 +85,7 @@ const PostCard = ({ post, isLikePosts }) => {
         onClick={recentReadOnlyMembers}
         src={imgSrc}
         alt={post.title}
-        onError={"/logo-dark.png"}
+        loading="lazy"
       />
 
       <div className={classes.contents} onClick={recentReadOnlyMembers}>

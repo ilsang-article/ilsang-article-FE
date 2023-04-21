@@ -14,7 +14,7 @@ function App() {
       </DarkModeProvider>
       <ToastContainer
         position="top-center"
-        autoClose={2000}
+        autoClose={1000}
         pauseOnHover={false}
         limit={1}
       />
