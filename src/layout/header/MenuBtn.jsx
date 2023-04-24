@@ -11,8 +11,8 @@ export default function MenuBtn({
 }) {
   const navigator = useNavigate();
   const logout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
   };
   return (
     <div

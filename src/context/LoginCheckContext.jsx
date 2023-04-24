@@ -6,7 +6,7 @@ export const LoginCheckProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    if (localStorage.access_token) {
+    if (sessionStorage.access_token) {
       setIsLogin(true);
     }
   }, [isLogin]);

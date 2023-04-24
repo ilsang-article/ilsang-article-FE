@@ -6,8 +6,8 @@ const TestLogin = () => {
 
   const loginMutation = useMutation((login) => loginApi(login), {
     onSuccess: (res) => {
-      localStorage.setItem("access_token", res.headers.access_token);
-      localStorage.setItem("refresh_token", res.headers.refresh_token);
+      sessionStorage.setItem("access_token", res.headers.access_token);
+      sessionStorage.setItem("refresh_token", res.headers.refresh_token);
       alert("로그인완료");
     },
   });

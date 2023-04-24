@@ -5,8 +5,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const access_token = localStorage.getItem("access_token");
-  const refresh_token = localStorage.getItem("refresh_token");
+  const access_token = sessionStorage.getItem("access_token");
+  const refresh_token = sessionStorage.getItem("refresh_token");
 
   if (access_token) {
     config.headers["access_token"] = `${access_token}}`;
